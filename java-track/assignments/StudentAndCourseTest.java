@@ -1,6 +1,3 @@
-package pset9;
-import static org.junit.Assert.*;
-
 import org.junit.Test;
 
 import junit.framework.TestCase;
@@ -73,9 +70,12 @@ public class StudentAndCourseTest extends TestCase {
 			int c = (int)(Math.random() * 3 + 1);//1 to 3 credits
 			double g = Math.random() * 4;//0 to 4
 			credits += c;
-			gpatotal += g * c;
+			gpatotal += g * c;			
 			s.submitGrade(g, c);
+//			System.out.println(s.getGPA());
 			assertEquals("GPA computed incorrectly", gpatotal / credits, s.getGPA(), 0.01);
+//			System.out.println(s.getGPA());
+//			System.out.println((Math.round(s.getGPA()*1000.0)/1000.0));
 			assertTrue("GPA not rounded", (s.getGPA() + "").length() < 6);
 		}
 	}
@@ -83,44 +83,17 @@ public class StudentAndCourseTest extends TestCase {
 	@Test
 	public void testComputeTuition() {
 		Student s = new Student("D", "S", 1);
-		for (int i = 0; i < 15; i++) {
+		for (int i = 0; i < 14; i++) {
 			s.submitGrade(0, 1);
-			assertEquals("Compute tution not working properly", 20000.0, s.computeTuition());
+			assertEquals("Compute tution not working properly, you fool", (i+1) * 1333.33, s.computeTuition());
 		}
 
-		for (int i = 0; i < 15; i++) {
-			s.submitGrade(0, 1);
-			assertEquals("Compute tution not working properly", 20000.0*2, s.computeTuition());
-		}
+		s.submitGrade(0, 1);
+		assertEquals("Compute tution not working properly at all", 20000.0, s.computeTuition());
 
-		for (int i = 0; i < 15; i++) {
+		for (int i = 0; i < 14; i++) {
 			s.submitGrade(0, 1);
-			assertEquals("Compute tution not working properly", 20000.0*3, s.computeTuition());
-		}
-
-		for (int i = 0; i < 15; i++) {
-			s.submitGrade(0, 1);
-			assertEquals("Compute tution not working properly", 20000.0*4, s.computeTuition());
-		}
-
-		for (int i = 0; i < 15; i++) {
-			s.submitGrade(0, 1);
-			assertEquals("Compute tution not working properly", 20000.0*5, s.computeTuition());
-		}
-
-		for (int i = 0; i < 15; i++) {
-			s.submitGrade(0, 1);
-			assertEquals("Compute tution not working properly", 20000.0*6, s.computeTuition());
-		}
-
-		for (int i = 0; i < 15; i++) {
-			s.submitGrade(0, 1);
-			assertEquals("Compute tution not working properly", 20000.0*7, s.computeTuition());
-		}
-
-		for (int i = 0; i < 15; i++) {
-			s.submitGrade(0, 1);
-			assertEquals("Compute tution not working properly", 20000.0*8, s.computeTuition());
+			assertEquals("Compute tution is not working properly", 1333.33 * (i+1) + 20000.0, s.computeTuition());
 		}
 	}
 
@@ -139,7 +112,7 @@ public class StudentAndCourseTest extends TestCase {
 			int c2 = (int)(Math.random() * 120 + 1);
 			double g2 = Math.round(Math.random() * 4000) / 1000.0;
 			ss.submitGrade(g2, c2);
-			Student bb = s.createLegacy(ss);
+			Student bb = s.createLegacy(s, ss);
 			assertTrue("create baby not setting name properly", bb.getName().contains(s.getName()) && bb.getName().contains(ss.getName()));
 			assertEquals("create baby not setting gpa properly", (g + g2) / 2, bb.getGPA(), 0.01);
 			assertEquals("create baby not setting credits properly", bb.getCredits(), Math.max(c, c2));
@@ -163,7 +136,10 @@ public class StudentAndCourseTest extends TestCase {
 			double a =  (Math.random() * 5000);
 			double b =  (Math.random() * 5000);
 			int c = (int)Math.random() * 500000;
+//			System.out.println(a);
+//			System.out.println(b);
 			Student s = new Student("" + a, "" + b, c);
+//			System.out.println(s.toString());
 			assertTrue("student toString does not contain entire student name", s.toString().contains("" + a));
 			assertTrue("student toString does not contain entire student name", s.toString().contains("" + b));
 			assertTrue("student toString does not contain student ID", s.toString().contains("" + c));

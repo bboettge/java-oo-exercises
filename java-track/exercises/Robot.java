@@ -3,11 +3,12 @@ public class Robot {
 	
 	//Fields:
 	
-	private String name;
-	private int positionX;
-	private int positionY;
-	private int speed;
-	private int orientation;
+	protected String name;
+	protected int positionX;
+	protected int positionY;
+	protected int speed;
+	protected int orientation;
+	protected String behavior;
 	
 	//Behaviors
 	
@@ -94,7 +95,10 @@ public class Robot {
 		return "Name: " + this.name + ", X Coordinate: " + this.positionX + ", Y Coordinate: " + this.positionY + ", Speed: " + this.speed + ", Orientation: " + this.orientation + " Degrees";
 	}
 	
-	
+	public void setBehavior(String RobotBehavior)
+	{
+		this.behavior = RobotBehavior;
+	}
 
 	public static void main(String args[]) 
 	{
@@ -109,6 +113,12 @@ public class Robot {
 		myRobot.move(2);
 		System.out.println(myRobot.toString());
 		System.out.println(myRobot.distance(yourRobot));
+		myRobot.setBehavior("DeffensiveBehavior");
+//		System.out.println(this.behavior);
+		
+		
+		
+		
 		
 	}
 
